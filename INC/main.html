@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sari-Sari Store Inventory</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="header">
+    <h1>Sari-Sari Store Inventory</h1>
+
+    <div class="subtitle">Stock Management System</div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard">
+    <div class="card">Total Products: <span id="totalProducts">0</span></div>
+    <div class="card lowCard">Low Stock: <span id="lowStock">0</span></div>
+    <div class="card valueCard">Total Value: ₱ <span id="totalValue">0</span></div>
+</div>
+
+<!-- FORM -->
+<div class="form">
+    <input type="text" id="name" placeholder="Product Name">
+    <input type="number" id="quantity" placeholder="Quantity">
+    <input type="number" id="price" placeholder="Price">
+    <button class="add-btn" onclick="addProduct()"><span></span> Add Product </button>
+</div>
+
+
+<h2>Inventory List</h2>
+<!-- SEARCH -->
+<div class="search-container">
+    <span class="search-icon"></span>
+    <input type="text" id="search" placeholder="Search product..." onkeyup="displayProducts()">
+</div>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody id="productList"></tbody>
+</table>
+
+<h2>Total Inventory Value: ₱ <span id="totalValue">0</span></h2>
