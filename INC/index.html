@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sari-Sari Store Inventory</title>
+    <link rel="stylesheet" href="style.css">
+
+   <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* BACKGROUND */
+body {
+    height: 100vh;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #1793c4f9 0%, #07577e 100%);
+}
+
+/* MAIN CARD */
+.main-box {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 45px;
+    border-radius: 18px;
+    width: 420px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* TITLE */
+.login-title {
+    font-size: 30px;
+    margin-bottom: 10px;
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.login-subtitle {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 25px;
+    font-size: 14px;
+}
+
+/* CHOICES */
+.choice-container {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+}
+
+/* TILE CARD */
+.choice-tile {
+    background: rgba(255, 255, 255, 0.25);
+    padding: 25px;
+    width: 220px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+}
+
+.choice-tile:hover {
+    transform: translateY(-8px) scale(1.02);
+    background: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* TILE TEXT */
+.choice-tile h2 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: #fff;
+}
+
+.choice-tile p {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* LOGIN FORM */
+#staffLoginForm {
+    display: none;
+    margin-top: 20px;
+}
+
+/* INPUT FIELD */
+.form-group {
+    position: relative;
+    margin-top: 15px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 12px 12px 15px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.85);
+    transition: 0.3s;
+}
+
+.form-input:focus {
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(118, 75, 162, 0.3);
+}
+
+/* BUTTON GENERAL */
+.login-btn {
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+/* TILE BUTTON */
+.choice-tile button {
+    margin-top: 12px;
+    padding: 8px 18px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #11cb74, #2575fc);
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.choice-tile button:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+</style>
+</head>
+
+<body>
+
+<!-- CHOICE SCREEN -->
+<div id="choiceScreen">
+    <div class="main-box">
+        <h1 class="login-title">Sari-Sari Store Inventory</h1>
+
+        <div class="choice-container">
+
+            <div class="choice-tile">
+                <h2>Admin</h2>
+                <p>Manage inventory</p>
+                <button onclick="showStaffLogin()">Login</button>
+            </div>
+
+        </div>
+
+        <!-- LOGIN -->
+        <div id="staffLoginForm">
+            <input id="username" placeholder="Username">
+            <input id="password" type="password" placeholder="Password">
+
+            <button onclick="staffLogin()">Login</button>
+        </div>
+
+    </div>
+</div>
+
+<!-- ADMIN PANEL (ONLY ONE) -->
+<div id="adminPanel" style="display:none;">
+
+    <h1>ADMIN INVENTORY</h1>
+
+    <!-- DASHBOARD -->
+    <div class="dashboard">
+        <div>Total Products: <span id="totalProducts">0</span></div>
+        <div>Low Stock: <span id="lowStock">0</span></div>
+        <div>Total Value: ₱<span id="totalValue">0</span></div>
+    </div>
+
+    <!-- FORM -->
+    <div class="form">
+        <input id="name" placeholder="Product Name">
+        <input id="quantity" type="number" placeholder="Quantity">
+        <input id="price" type="number" placeholder="Price">
+        <input id="level" type="number" placeholder="Low Level">
+        <input id="expiry" type="date">
+
+        <select id="category">
+            <option>Food</option>
+            <option>Drinks</option>
+            <option>Household</option>
+            <option>Instant Goods</option>
+        </select>
+
+        <button onclick="addProduct()">Add Product</button>
+    </div>
+
+    <!-- INVENTORY -->
+    <div class="category-box food">
+        <h2>Food Inventory</h2>
+        <table><tbody id="foodList"></tbody></table>
+    </div>
+
+    <div class="category-box drinks">
+        <h2>Drinks Inventory</h2>
+        <table><tbody id="drinksList"></tbody></table>
+    </div>
+
+    <div class="category-box household">
+        <h2>Household Inventory</h2>
+        <table><tbody id="householdList"></tbody></table>
+    </div>
+
+    <div class="category-box instant">
+        <h2>Instant Goods Inventory</h2>
+        <table><tbody id="instantList"></tbody></table>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body> 
+
+<!-- CHOICE SCREEN -->
+<div id="choiceScreen">
+    <div class="main-box">
+        <h1 class="login-title">Sari-Sari Store Inventory</h1>
+
+        <div class="choice-container">
+            <div class="choice-tile">
+                <h2>Customer</h2>
+                <p>Quick order</p>
+                <button onclick="goToCustomer()">Enter</button>
+            </div>
+
+        </div>
+
+<!-- ADMIN PANEL (ONLY ONE) -->
+<div id="adminPanel" style="display:none;">
+
+    <h1>ADMIN INVENTORY</h1>
+
+    <!-- DASHBOARD -->
+    <div class="dashboard">
+        <div>Total Products: <span id="totalProducts">0</span></div>
+        <div>Low Stock: <span id="lowStock">0</span></div>
+        <div>Total Value: ₱<span id="totalValue">0</span></div>
+    </div>
+
+    <!-- FORM -->
+    <div class="form">
+        <input id="name" placeholder="Product Name">
+        <input id="quantity" type="number" placeholder="Quantity">
+        <input id="price" type="number" placeholder="Price">
+        <input id="level" type="number" placeholder="Low Level">
+        <input id="expiry" type="date">
+
+        <select id="category">
+            <option>Food</option>
+            <option>Drinks</option>
+            <option>Household</option>
+            <option>Instant Goods</option>
+        </select>
+
+        <button onclick="addProduct()">Add Product</button>
+    </div>
+
+    <!-- INVENTORY -->
+    <div class="category-box food">
+        <h2>Food Inventory</h2>
+        <table><tbody id="foodList"></tbody></table>
+    </div>
+
+    <div class="category-box drinks">
+        <h2>Drinks Inventory</h2>
+        <table><tbody id="drinksList"></tbody></table>
+    </div>
+
+    <div class="category-box household">
+        <h2>Household Inventory</h2>
+        <table><tbody id="householdList"></tbody></table>
+    </div>
+
+    <div class="category-box instant">
+        <h2>Instant Goods Inventory</h2>
+        <table><tbody id="instantList"></tbody></table>
+    </div>
+
+</div>
+
+<!-- CUSTOMER SCREEN -->
+<div id="customerScreen" style="display:none;">
+    <h1>Customer Store</h1>
+    <button onclick="goBack()">Back</button>
+    <div id="customerList"></div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

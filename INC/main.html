@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sari-Sari Store Inventory</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="header">
+    <h1>Sari-Sari Store Inventory</h1>
+
+    <div class="subtitle">Stock Management System</div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard">
+    <div class="card">Total Products: <span id="totalProducts">0</span></div>
+    <div class="card lowCard">Low Stock: <span id="lowStock">0</span></div>
+    <div class="card valueCard">Total Value: ₱ <span id="totalValue">0</span></div>
+</div>
+
+<!-- FORM -->
+<div class="form">
+    <input type="text" id="name" placeholder="Product Name">
+    <input type="number" id="quantity" placeholder="Quantity">
+    <input type="number" id="price" placeholder="Price">
+    <input type="number" id="level" placeholder="Low Stock Level">
+    <input type="date" id="expiry" placeholder="Expiry Date">
+   <select id="category">
+    <option value="Food">Food</option>
+    <option value="Drinks">Drinks</option>
+    <option value="Household">Household</option>
+    <option value="Instant Goods">Instant Goods</option>
+</select>
+    <button class="add-btn" onclick="addProduct()"><span></span> Add Product </button>
+    
+</div>
+
+
+<div class="section-header">
+    Inventory Section
+</div>
+<!-- SEARCH -->
+<div class="search-container">
+    <input type="text" id="search" placeholder="Search product..." onkeyup="displayProducts()">
+    <span class="search-icon"></span>
+</div>
+
+<div class="category-box food">
+    <h2 class="category-title">Food Inventory</h2>
+
+    <table class="inventory-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Level</th>
+                <th>Expiry</th>
+            </tr>
+        </thead>
+
+        <tbody id="foodList"></tbody>
+    </table>
+</div>
+
+<div class="category-box drinks">
+    <h2 class="category-title">Drinks Inventory</h2>
+
+    <table class="inventory-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Level</th>
+                <th>Expiry</th>
+            </tr>
+        </thead>
+
+        <tbody id="drinksList"></tbody>
+    </table>
+</div>
+
+<div class="category-box household">
+    <h2 class="category-title">Household Inventory</h2>
+
+    <table class="inventory-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Level</th>
+                <th>Expiry</th>
+            </tr>
+        </thead>
+
+        <tbody id="householdList"></tbody>
+    </table>
+</div>
+
+<div class="category-box instant">
+    <h2 class="category-title">Instant Goods Inventory</h2>
+
+    <table class="inventory-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Level</th>
+                <th>Expiry</th>
+            </tr>
+        </thead>
+
+        <tbody id="instantList"></tbody>
+    </table>
+</div>
+
+    <script src="script.js"></script>
+</body>
